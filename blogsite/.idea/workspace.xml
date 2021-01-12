@@ -14,6 +14,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -28,6 +29,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="settings.editor.selected.configurable" value="configurable.group.tools" />
@@ -69,7 +71,8 @@
       <workItem from="1609613586181" duration="3855000" />
       <workItem from="1609782645647" duration="4044000" />
       <workItem from="1609939073258" duration="8447000" />
-      <workItem from="1610391494711" duration="2673000" />
+      <workItem from="1610391494711" duration="2773000" />
+      <workItem from="1610473844684" duration="5323000" />
     </task>
     <servers />
   </component>
@@ -86,25 +89,33 @@
       <screen x="1920" y="185" width="1920" height="1040" />
     </state>
     <state x="2294" y="475" key="FileChooserDialogImpl/0.0.1920.1040/1920.185.1920.1040@1920.185.1920.1040" timestamp="1609788390163" />
-    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1609954673463">
+    <state width="1877" height="369" key="GridCell.Tab.0.bottom" timestamp="1610485535804">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.185.1920.1040@0.0.1920.1040" timestamp="1609954673463" />
-    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1609954673463">
+    <state width="1877" height="369" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.185.1920.1040@0.0.1920.1040" timestamp="1610485535804" />
+    <state width="1877" height="235" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1610477597697" />
+    <state width="1877" height="369" key="GridCell.Tab.0.center" timestamp="1610485535804">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040/1920.185.1920.1040@0.0.1920.1040" timestamp="1609954673463" />
-    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1609954673463">
+    <state width="1877" height="369" key="GridCell.Tab.0.center/0.0.1920.1040/1920.185.1920.1040@0.0.1920.1040" timestamp="1610485535804" />
+    <state width="1877" height="235" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1610477597697" />
+    <state width="1877" height="369" key="GridCell.Tab.0.left" timestamp="1610485535804">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040/1920.185.1920.1040@0.0.1920.1040" timestamp="1609954673463" />
-    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1609954673463">
+    <state width="1877" height="369" key="GridCell.Tab.0.left/0.0.1920.1040/1920.185.1920.1040@0.0.1920.1040" timestamp="1610485535804" />
+    <state width="1877" height="235" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1610477597697" />
+    <state width="1877" height="369" key="GridCell.Tab.0.right" timestamp="1610485535804">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040/1920.185.1920.1040@0.0.1920.1040" timestamp="1609954673463" />
+    <state width="1877" height="369" key="GridCell.Tab.0.right/0.0.1920.1040/1920.185.1920.1040@0.0.1920.1040" timestamp="1610485535804" />
+    <state width="1877" height="235" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1610477597697" />
     <state x="461" y="165" key="SettingsEditor" timestamp="1609942419309">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="165" key="SettingsEditor/0.0.1920.1040/1920.185.1920.1040@0.0.1920.1040" timestamp="1609942419309" />
+    <state x="404" y="85" width="1183" height="738" key="find.popup" timestamp="1610477399021">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="404" y="85" width="1183" height="738" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1610477399021" />
   </component>
 </project>
