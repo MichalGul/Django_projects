@@ -13,4 +13,8 @@
         </p>
         {{ post.body|truncatewords:30|linenumbers }}
     {% endfor %}
+
+    {# Adding Paginaton form view #}
+    {# Django's ListView generic view passes the selected page in a variable called page_obj #}
+    {% include "pagination.html" with page=page_obj %}
 {% endblock %}
