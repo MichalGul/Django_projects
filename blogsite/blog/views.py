@@ -2,6 +2,9 @@ from django.shortcuts import render, get_object_or_404
 from .models import Post
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView
+from .forms import EmailPostForm
+from django.core.mail import send_mail
+from blogsite.settings import EMAIL_HOST_USER
 
 
 # Class based view see urls.py in blog app to usage
@@ -37,3 +40,24 @@ def post_detail(request, year, month, day, post):
                              publish__month=month,
                              publish__day=day)
     return render(request, 'blog/post/detail.html', {'post': post})
+
+
+def post_share(request, post_id):
+    # Retrive post by id
+    post = get_object_or_404(Post, id=post_id, status='published')
+    sent = False
+    if request.method == 'POST':
+        # Form was submited
+        form = EmailPostForm(request.POST)  # from filled with user data
+        if form.is_valid():
+            # Form fields passes validation
+            cd = form.cleaned_data  # If your form data does not validate, cleaned_data will contain only the valid
+            # fields.
+            post_url = request.build_absolute_uri(post.get_absolute_url())
+            subject = f"{cd['name']} recomends your read {post.title}"
+            message = f"Read {post.title} at {post_url} \n\n {cd['name']} 's comments: {cd['comments']}"
+            send_mail(subject, message, EMAIL_HOST_USER, [cd['to']])
+            sent = True
+    else:
+        form = EmailPostForm()  # empty form
+    return render(request, 'blog/post/share.html', {'post': post, 'form': form, 'sent': sent})
