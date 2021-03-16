@@ -29,10 +29,11 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="postgresql" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="settings.editor.selected.configurable" value="configurable.group.tools" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Language Defaults" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -83,6 +84,7 @@
       <workItem from="1611082868796" duration="3166000" />
       <workItem from="1611145262418" duration="1581000" />
       <workItem from="1611257599834" duration="2624000" />
+      <workItem from="1615918836344" duration="7171000" />
     </task>
     <servers />
   </component>
@@ -90,11 +92,11 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="2334" y="360" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1611148247494">
+    <state x="2766" y="439" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1615930150827">
       <screen x="1920" y="185" width="1920" height="1040" />
     </state>
     <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/1920.185.1920.1040@0.0.1920.1040" timestamp="1610656407558" />
-    <state x="2334" y="360" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/1920.185.1920.1040@1920.185.1920.1040" timestamp="1611148247494" />
+    <state x="2766" y="439" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/1920.185.1920.1040@1920.185.1920.1040" timestamp="1615930150827" />
     <state x="2294" y="475" key="FileChooserDialogImpl" timestamp="1611087349013">
       <screen x="1920" y="185" width="1920" height="1040" />
     </state>
@@ -119,14 +121,20 @@
     </state>
     <state width="1877" height="369" key="GridCell.Tab.0.right/0.0.1920.1040/1920.185.1920.1040@0.0.1920.1040" timestamp="1610658319138" />
     <state width="1877" height="235" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1610477597697" />
-    <state x="461" y="165" key="SettingsEditor" timestamp="1609942419309">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="212" height="471" key="HiddenNamespacesPopup" timestamp="1615930105698">
+      <screen x="1920" y="185" width="1920" height="1040" />
+    </state>
+    <state width="212" height="471" key="HiddenNamespacesPopup/0.0.1920.1040/1920.185.1920.1040@1920.185.1920.1040" timestamp="1615930105698" />
+    <state x="2381" y="350" key="SettingsEditor" timestamp="1615925898629">
+      <screen x="1920" y="185" width="1920" height="1040" />
     </state>
     <state x="461" y="165" key="SettingsEditor/0.0.1920.1040/1920.185.1920.1040@0.0.1920.1040" timestamp="1609942419309" />
-    <state x="404" y="85" width="1183" height="738" key="find.popup" timestamp="1610995294545">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="2381" y="350" key="SettingsEditor/0.0.1920.1040/1920.185.1920.1040@1920.185.1920.1040" timestamp="1615925898629" />
+    <state x="2324" y="270" width="1183" height="738" key="find.popup" timestamp="1615932397391">
+      <screen x="1920" y="185" width="1920" height="1040" />
     </state>
     <state x="404" y="85" width="1183" height="738" key="find.popup/0.0.1920.1040/1920.185.1920.1040@0.0.1920.1040" timestamp="1610995294545" />
+    <state x="2324" y="270" width="1183" height="738" key="find.popup/0.0.1920.1040/1920.185.1920.1040@1920.185.1920.1040" timestamp="1615932397391" />
     <state x="404" y="85" width="1183" height="738" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1610477399021" />
   </component>
 </project>

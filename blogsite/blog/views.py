@@ -5,7 +5,8 @@ from django.views.generic import ListView
 from .forms import EmailPostForm, CommentForm
 from django.core.mail import send_mail
 from blogsite.settings import EMAIL_HOST_USER
-
+from taggit.models import Tag
+from django.db.models import Count # This is the Count aggregation function of the Django ORM. This function will allow you to perform aggregated counts of tags. django.db.models includes the following aggregation functions:
 
 # Class based view see urls.py in blog app to usage
 class PostListView(ListView):
@@ -15,9 +16,13 @@ class PostListView(ListView):
     template_name = 'blog/post/list.html'
 
 
-# Create your views here.
-def post_list(request):  # parametr reqeust jest wymagany przez wszystkie funkcjie widoków
+# Regular mangual view
+def post_list(request, tag_slug=None):  # parametr reqeust jest wymagany przez wszystkie funkcjie widoków
     posts = Post.published.all()
+    tag = None
+    if tag_slug:
+        tag = get_object_or_404(Tag, slug=tag_slug)
+        posts = posts.filter(tags__in=[tag])
     paginator = Paginator(posts, 3)  # 3 post in each page
     print(request.GET)
     page = request.GET.get('page')
@@ -30,7 +35,8 @@ def post_list(request):  # parametr reqeust jest wymagany przez wszystkie funkcj
         # if page is out of range deliver last page of result
         posts = paginator.page(paginator.num_pages)
 
-    return render(request=request, template_name='blog/post/list.html', context={'posts': posts, 'page': page})
+    return render(request=request, template_name='blog/post/list.html',
+                  context={'posts': posts, 'page': page, 'tag': tag})
 
 
 def post_detail(request, year, month, day, post):
@@ -54,12 +60,21 @@ def post_detail(request, year, month, day, post):
             new_comment.save()
     else:
         comment_form = CommentForm()
+
+    # List of similar posts using model agregatuin functions
+    post_tags_ids = post.tags.values_list('id', flat=True) # retrieve list of ids of the tags of current post values_list() QuerySet returns tuples with the values for the given fields. You pass flat=True to it to get single values such as [1, 2, 3, ...] instead of one-tuples such as [(1,), (2,), (3,) ...].
+    similar_posts = Post.published.filter(tags__in=post_tags_ids).exclude(id=post.id) # Get all posts that contain any of these tags excluding current post
+    similar_posts = similar_posts.annotate(same_tags=Count('tags')).order_by('-same_tags', '-publish')[:4] # You use the Count aggregation function to generate a calculated field—same_tags—that contains the number of tags shared with all the tags queried.
+    # then You order the result by the number of shared tags (descending order) and by publish to display recent posts first for the posts with the same number of shared tags. You slice the result to retrieve only the first four posts.
+
+
     return render(request,
                   'blog/post/detail.html',
                   {'post': post,
                    'comments': comments,
                    'new_comment': new_comment,
-                   'comment_form': comment_form})
+                   'comment_form': comment_form,
+                   'similar_posts': similar_posts})
 
 
 def post_share(request, post_id):

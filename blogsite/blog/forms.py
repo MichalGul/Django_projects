@@ -10,7 +10,7 @@ class EmailPostForm(forms.Form):
                                widget=forms.Textarea)
 
 
-class CommentForm(forms.ModelForm):  # Dynamicly create form
+class CommentForm(forms.ModelForm):  # Dynamicly create form from model
     class Meta:
         model = Comment
         fields = ('name', 'email', 'body')  # which fields fo model are user for form
