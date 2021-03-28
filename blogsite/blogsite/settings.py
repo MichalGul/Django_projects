@@ -34,7 +34,7 @@ EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
-
+SITE_ID = 1
 # Application definition
 
 INSTALLED_APPS = [
@@ -45,7 +45,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog.apps.BlogConfig',
-    'taggit'
+    'taggit',
+    'django.contrib.sites',
+    'django.contrib.sitemaps'
 ]
 
 MIDDLEWARE = [
@@ -88,7 +90,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'django_blog',
         'USER': 'postgres',
-        'PASSWORD': 'postgres',
+        'PASSWORD': 'gulki1',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
