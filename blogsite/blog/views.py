@@ -1,12 +1,38 @@
 from django.shortcuts import render, get_object_or_404
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 from .models import Post, Comment
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView
-from .forms import EmailPostForm, CommentForm
+from .forms import EmailPostForm, CommentForm, SearchForm
 from django.core.mail import send_mail
 from blogsite.settings import EMAIL_HOST_USER
 from taggit.models import Tag
 from django.db.models import Count # This is the Count aggregation function of the Django ORM. This function will allow you to perform aggregated counts of tags. django.db.models includes the following aggregation functions:
+
+
+def post_search(request):
+    form = SearchForm()
+    query = None
+    results = []
+    if 'query' in request.GET: # send the form using the GET method instead of POST
+        form = SearchForm(request.GET) #When the form is submitted, you instantiate it with the submitted GET data, and verify that the form data is valid
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            #create a SearchQuery object, filter results by it, and use SearchRank to order the results by relevancy.
+            search_vector = SearchVector('title', 'body')
+            search_query = SearchQuery(query)
+
+            results = Post.published.annotate(
+                search=search_vector,
+                rank=SearchRank(search_vector, search_query)
+            ).filter(search=search_query).order_by('-rank')
+
+    return render(request,
+                  'blog/post/search.html',
+                  {'form': form,
+                   'query':query,
+                   'results':results}
+                  )
 
 # Class based view see urls.py in blog app to usage
 class PostListView(ListView):
