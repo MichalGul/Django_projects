@@ -132,3 +132,7 @@ LOGIN_URL = 'login' # The URL to redirect the user to log in (for example, views
 LOGOUT_URL = 'logout' # The URL to redirect the user to log out
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# To enable Django to serve media files uploaded by users with the development server
+MEDIA_URL = '/media/' #is the base URL used to serve the media files uploaded by users, and
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/') #  is the local path where they reside. You build the path dynamically relative to your project path to make your code more generic.
