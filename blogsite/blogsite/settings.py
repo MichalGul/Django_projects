@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -91,7 +91,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'django_blog',
         'USER': 'postgres',
-        'PASSWORD': 'postgres',
+        'PASSWORD': 'gulki1',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
@@ -135,3 +135,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Serve media files
+# MEDIA_URL is the base URL used to serve the media files uploaded by users, and MEDIA_ROOT is the local path where they reside. You build the path dynamically relative to your project path to make your code more generic.
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
