@@ -15,8 +15,9 @@ class ImageCreateForm(forms.ModelForm):
     # This method is executed for each field when call is_valid()
     def clean_url(self):
         url = self.cleaned_data['url']
-        valid_extensions = ['.jpg', '.jpeg']
+        valid_extensions = ['jpg', 'jpeg']
         extension = url.rsplit('.', 1)[1].lower()
+        print(extension)
         if extension not in valid_extensions:
             raise forms.ValidationError('The given URL does not match valid image extension')
         return url
