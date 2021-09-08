@@ -5,6 +5,7 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
 from django.views.decorators.http import require_POST
 
+from common.decorators import ajax_required
 from .forms import ImageCreateForm
 from .models import Image
 
@@ -43,6 +44,7 @@ def image_detail(request, id, slug):
                    'image': image})
 
 
+@ajax_required
 @login_required
 @require_POST #returns HttpResponseNotAllowed object (405) if the HTTP request is not done via POST - allow only POST request for this view.
 def image_like(request):
