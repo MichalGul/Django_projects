@@ -1,7 +1,9 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
+from django.views.decorators.http import require_POST
 
 from .forms import ImageCreateForm
 from .models import Image
@@ -39,3 +41,33 @@ def image_detail(request, id, slug):
                   'images/image/detail.html',
                   {'section': 'images',
                    'image': image})
+
+
+@login_required
+@require_POST #returns HttpResponseNotAllowed object (405) if the HTTP request is not done via POST - allow only POST request for this view.
+def image_like(request):
+    image_id = request.POST.get('id')
+    action = request.POST.get('action')
+    print(request.POST)
+    if image_id and action:
+        try:
+            image = Image.objects.get(id=image_id)
+            """
+            Note:
+            Manager provided by Django for the users_like many-to-many field of the Image model in order 
+            to add or remove objects from the relationship using the add() or remove() methods. Calling add(), 
+            that is, passing an object that is already present in the related object set, does not duplicate it. 
+            Calling remove() and passing an object that is not in the related object set does nothing. 
+            Another useful method of many-to-many managers is clear(), which removes all objects from the related object set.   
+                    
+            """
+
+            if action == 'like':
+                image.users_like.add(request.user)
+            else:
+                image.users_like.remove(request.user)
+            return JsonResponse({'status': 'ok'})
+        except:
+            pass
+    return JsonResponse({'status': 'error'})
+

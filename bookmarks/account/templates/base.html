@@ -45,5 +45,32 @@
     {% block content %}
     {% endblock %}
   </div>
+
+{# load jquerry #}
+{# With CSRF protection active, Django checks for a CSRF token in all POST requests. When you submit forms, you can use the {% csrf_token %} template tag to send the token along with the form. However, it is a bit inconvenient for AJAX requests to pass the CSRF token as POST data with every POST request. Therefore, Django allows you to set a custom X-CSRFToken header in your AJAX requests with the value of the CSRF token. This enables you to set up jQuery or any other JavaScript library to automatically set the X-CSRFToken header in every request. #}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2.2.1/src/js.cookie.min.js"></script>
+<script>
+  var csrftoken = Cookies.get('csrftoken');
+  function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+  }
+  $.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+      if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+      }
+    }
+  });
+
+  $(document).ready(function(){
+    {# block domready - templates that extend the base template will be able to include specific JavaScript #}
+    {% block domready %}
+    {% endblock %}
+  });
+</script>
+
+
 </body>
 </html>
