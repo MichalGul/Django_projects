@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Images bookmarked{% endblock %}
+{% block content %}
+  <h1>Images bookmarked</h1>
+  <div id="image-list">
+ {#  include other template to avoid code duplication #}
+    {% include "images/image/list_ajax.html" %}
+  </div>
+{% endblock %}
+
+{#code for loading additional pages when scrolling to the bottom of the page#}
+<script>
+
+{% block domready %}
+    // current page number
+    let page = 1;
+    // allows to know whether the user is on the last page and retrives and empty page As soon as you get an empty page, you will stop sending additional AJAX requests because you will assume that there are no more results.
+    let empty_page = false;
+    //Prevents from sending additional requests while an AJAX request is in progress.
+    let block_request = false;
+
+    $.get('?page=' + page, function(data) {
+        if(data == '') {
+            empty_page = true;
+        }
+        else {
+            block_request = false;
+            $('#image-list').append(data);
+        }
+    });
+
+    $( window ).scroll(function() {
+        console.log("ASCS")
+        var margin = $(document).height() - $(window).height() - 200;
+        if ($(window).scrollTop() > margin && empty_page == false && block_request == false) {
+            block_request = true;
+            page += 1;
+            $.get('?page=' + page, function(data) {
+                if(data == '') {
+                    empty_page = true;
+                }
+                else {
+                    block_request = false;
+                    $('#image-list').append(data);
+                }
+            });
+        }
+    });
+{% endblock %}
+
+
+</script>
