@@ -22,6 +22,9 @@ class Image(models.Model):
     users_like = models.ManyToManyField(settings.AUTH_USER_MODEL,
                                         related_name='images_liked',
                                         blank = True)
+    # store total count of users who like image
+    total_likes = models.PositiveIntegerField(db_index=True,
+                                              default=0)
 
     def get_absolute_url(self):
         return reverse('images:detail', args=[self.id, self.slug])
