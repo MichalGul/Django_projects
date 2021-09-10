@@ -1,3 +1,5 @@
+import redis
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import PageNotAnInteger, Paginator, EmptyPage
@@ -12,6 +14,10 @@ from common.decorators import ajax_required
 from .forms import ImageCreateForm
 from .models import Image
 
+# connect to redis
+r = redis.Redis(host=settings.REDIS_HOST,
+                port=settings.REDIS_PORT,
+                db=settings.REDIS_DB)
 
 # Create your views here.
 
@@ -42,10 +48,15 @@ def image_create(request):
 
 def image_detail(request, id, slug):
     image = get_object_or_404(Image, id=id, slug=slug)
+    # increment total image views by 1
+    total_views = r.incr(f'image:{image.id}:views') # increment value of given key by 1 if not exists redis creates one
+    # increment image ranking by 1
+    r.zincrby('image_ranking', 1, image.id)
     return render(request,
                   'images/image/detail.html',
                   {'section': 'images',
-                   'image': image})
+                   'image': image,
+                   'total_views': total_views})
 
 
 @ajax_required
@@ -107,3 +118,19 @@ def image_list(request):
     return render(request,
                   'images/image/list.html',
                   {'section': 'images', "images": images})
+
+@login_required
+def image_ranking(request):
+    # get image ranking dict. Using 0 as the lowest and -1 as the highest score, you are telling Redis to return all
+    # elements in the sorted set
+    image_ranking = r.zrange('image_ranking', 0, -1, desc=True)[:10]
+    image_ranking_ids = [int(id) for id in image_ranking]
+    # get most viewed images
+    most_viewed = list(Image.objects.filter(
+                        id__in=image_ranking_ids))
+    # sort image by their index of appearance in image ranking
+    most_viewed.sort(key=lambda x: image_ranking_ids.index(x.id))
+    return render(request,
+                  'images/image/ranking.html',
+                  {'section': 'images',
+                   'most_viewed': most_viewed})

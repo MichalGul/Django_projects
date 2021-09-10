@@ -36,6 +36,10 @@ ABSOLUTE_URL_OVERRIDES = {
 }
 
 
+# redis configuration
+REDIS_HOST = 'localhost'
+REDIS_PORT = 6379
+REDIS_DB = 0
 
 
 # Application definition
