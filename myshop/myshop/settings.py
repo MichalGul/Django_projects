@@ -66,6 +66,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'cart.context_processors.cart' # added custom context processor
             ],
         },
     },
@@ -82,7 +83,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'django_shop',
         'USER': 'postgres',
-        'PASSWORD': 'postgres',
+        'PASSWORD': 'gulki1',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
