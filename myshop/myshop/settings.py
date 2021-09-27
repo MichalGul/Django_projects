@@ -85,7 +85,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'django_shop',
         'USER': 'postgres',
-        'PASSWORD': 'gulki1',
+        'PASSWORD': 'postgres',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
@@ -137,3 +137,17 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 # session settings
 
 CART_SESSION_ID = 'cart'
+
+
+# redis configuration
+REDIS_HOST = 'localhost'
+REDIS_PORT = 6379
+REDIS_DB = 0
+
+# celery configuration (with redis)
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+# CELERY_ACCEPT_CONTENT = ['application/json']
+# CELERY_TASK_SERIALIZER = 'json'
+# CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Asia/Dhaka'

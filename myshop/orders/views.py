@@ -4,7 +4,7 @@ from .models import OrderItem
 from .forms import OrderCreateForm
 from cart.cart import Cart
 from .tasks import order_created
-
+import redis
 
 # Create your views here.
 def order_create(request):

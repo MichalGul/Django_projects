@@ -1,0 +1,2 @@
+run celery
+celery -A myshop  worker --pool=solo -l info (dziala ale bez rownoleglosci)
