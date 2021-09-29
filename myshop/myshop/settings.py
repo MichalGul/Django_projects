@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'shop.apps.ShopConfig',
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig',
+    'payment.apps.PaymentConfig',
 ]
 
 MIDDLEWARE = [
@@ -151,3 +152,18 @@ CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 # CELERY_TASK_SERIALIZER = 'json'
 # CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Asia/Dhaka'
+
+
+# Braintree settings
+# Braintree settings
+BRAINTREE_MERCHANT_ID = 'jq4ys224fgv35xr5'  # Merchant ID
+BRAINTREE_PUBLIC_KEY = 'xmnb87xjhzprhdnv'   # Public Key
+BRAINTREE_PRIVATE_KEY = 'aa524227c6fa347c2b0025ba6351429b'  # Private key
+
+import braintree
+BRAINTREE_CONF = braintree.Configuration(
+    braintree.Environment.Sandbox,
+    BRAINTREE_MERCHANT_ID,
+    BRAINTREE_PUBLIC_KEY,
+    BRAINTREE_PRIVATE_KEY
+)
