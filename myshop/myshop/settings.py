@@ -134,6 +134,7 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 # local path where these files reside, which you build by dynamically prepending the BASE_DIR variable
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 # session settings
 
