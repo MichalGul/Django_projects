@@ -27,9 +27,13 @@ def payment_process(request):
             order.paid = True
             # store the unique transaction id
             order.braintree_id = result.transaction.id
+            print(result.transaction.processor_response_text)
             order.save()
             return redirect('payment:done')
         else:
+            print(dir(result.transaction))
+            print(result.transaction)
+            request.session["transaction_result"] = result.transaction.processor_response_text if result.transaction else "zepsulo sie"
             return redirect('payment:canceled')
     else:
         # generate token
@@ -45,4 +49,4 @@ def payment_done(request):
 
 
 def payment_canceled(request):
-    return render(request, 'payment/canceled.html')
+    return render(request, 'payment/canceled.html', {"transaction_result": request.session["transaction_result"]})
