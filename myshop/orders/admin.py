@@ -3,7 +3,8 @@ from .models import Order, OrderItem
 import csv
 import datetime
 from django.http import HttpResponse
-
+from django.urls import reverse
+from django.utils.safestring import mark_safe
 # Register your models here.
 
 # allows to add order item along with order in the same admin edit page
@@ -36,11 +37,22 @@ def export_to_csv(modeladmin, request, queryset):
 export_to_csv.short_description = 'Export to CSV'
 
 
+def order_detail(obj):
+    '''
+    takes an Order object as an argument and returns an HTML link for the admin_order_detail URL.
+      Django escapes HTML output by default. You have to use the mark_safe function to avoid auto-escaping.
+    :param obj:
+    :return:
+    '''
+    url = reverse('orders:admin_order_detail', args=[obj.id])
+    return mark_safe(f'<a href="{url}">View</a>')
+
+
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = ['id', 'first_name', 'last_name', 'email',
                     'address', 'postal_code', 'city', 'paid',
-                    'created', 'updated']
+                    'created', 'updated', order_detail]
     list_filter = ['paid', 'created', 'updated']
     inlines = [OrderItemInline]
     #add custom action to models
