@@ -52,7 +52,6 @@ def order_pdf(obj):
     url = reverse('orders:admin_order_pdf', args=[obj.id])
     return mark_safe(f'<a href="{url}">PDF</a>')
 
-
 order_pdf.short_description = 'Invoice'
 
 
@@ -63,7 +62,7 @@ class OrderAdmin(admin.ModelAdmin):
                     'created', 'updated', order_detail, order_pdf]
     list_filter = ['paid', 'created', 'updated']
     inlines = [OrderItemInline]
-    #add custom action to models
+    # add custom action to models
     actions = [export_to_csv, order_pdf]
 
 
