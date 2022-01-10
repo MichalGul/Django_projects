@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'payment.apps.PaymentConfig',
     'coupons.apps.CouponsConfig',
     'rosetta',
+    'parler'
 ]
 
 MIDDLEWARE = [
@@ -132,6 +133,19 @@ LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale/'),
 )
 
+PARLER_LANGUAGES = {
+    None: (
+        {'code': 'en'},
+        {'code': 'es'},
+        {'code': 'pl'},
+    ),
+    'default': {
+        'fallback': 'en',
+        'hide_untranslated': False,
+    }
+}
+
+
 
 TIME_ZONE = 'UTC'
 
@@ -184,3 +198,6 @@ BRAINTREE_CONF = braintree.Configuration(
     BRAINTREE_PUBLIC_KEY,
     BRAINTREE_PRIVATE_KEY
 )
+
+
+
