@@ -175,7 +175,7 @@ CART_SESSION_ID = 'cart'
 # redis configuration
 REDIS_HOST = 'localhost'
 REDIS_PORT = 6379
-REDIS_DB = 0
+REDIS_DB = 1
 
 # celery configuration (with redis)
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
