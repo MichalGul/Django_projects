@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'payment.apps.PaymentConfig',
     'coupons.apps.CouponsConfig',
     'rosetta',
-    'parler'
+    'parler',
+    'localflavor'
 ]
 
 MIDDLEWARE = [
@@ -151,7 +152,7 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
-USE_L10N = True
+USE_L10N = True # formating dates
 
 USE_TZ = True
 
@@ -160,7 +161,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-# base URL that serves media files uploaded by users
+# base URL that serves media files ureploaded by users
 MEDIA_URL = '/media/'
 # local path where these files reside, which you build by dynamically prepending the BASE_DIR variable
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
