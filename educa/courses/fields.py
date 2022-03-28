@@ -1,10 +1,11 @@
 from django.db import models
 from django.core.exceptions import ObjectDoesNotExist
 
-# Custom model field to defin order of the objects
+
+# Custom model field to define order of the objects
 class OrderField(models.PositiveIntegerField):
     def __init__(self, for_fields=None, *args, **kwargs):
-        self.for_fields = for_fields
+        self.for_fields = for_fields # fields that the order has to be calculated with respect to
         super().__init__(*args, **kwargs)
 
     # called before save field to database

@@ -45,17 +45,18 @@ class Module(models.Model):
     class Meta:
         ordering = ['order']
     def __str__(self):
-        return self.title
+        return f'{self.order}. {self.title}'
 
 class Content(models.Model):
     module = models.ForeignKey(Module,
                                related_name='contents',
                                on_delete=models.CASCADE)
-    content_type = models.ForeignKey(ContentType, # generic relation to associate objects from different models that represent different types of content
+    content_type = models.ForeignKey(ContentType,
+                                     # generic relation to associate objects from different models that represent different types of content
                                      on_delete=models.CASCADE,
-                                     limit_choices_to={'model__in': ('text', 'video', "image", 'file')})
+                                     limit_choices_to={'model__in': ('text', 'video', "image", 'file')}) # limit the ConentType objects that can be used for the generic relation
     object_id = models.PositiveIntegerField()
-    # Only the content_typeand object_id fields have a corresponding column in the database table of this model.
+    # Only the content_type and object_id fields have a corresponding column in the database table of this model.
     # The item field allows you to retrieve or set the related object directly, and its functionality is built on
     # top of the other two fields.
     item = GenericForeignKey('content_type', 'object_id')
@@ -65,7 +66,7 @@ class Content(models.Model):
 
 class ItemBase(models.Model):
     owner = models.ForeignKey(User,
-                              related_name='%(class)s_related', #placeholder for child model class name
+                              related_name='%(class)s_related', # placeholder for child model class name
                               on_delete=models.CASCADE)
     title = models.CharField(max_length=250)
     created = models.DateTimeField(auto_now_add=True)
