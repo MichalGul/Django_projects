@@ -10,6 +10,7 @@ from django.views.generic.base import TemplateResponseMixin, View
 from .forms import ModuleFormSet
 from django.forms.models import modelform_factory
 from django.apps import apps
+from braces.views import CsrfExemptMixin, JSONRequestResponseMixin
 
 # Mixins are a special kind of multiple inheritance for a class.
 # You can use them to provide common discrete functionality that, when added to other mixins,
@@ -168,7 +169,24 @@ class ModuleContentListView(TemplateResponseMixin, View):
         return self.render_to_response({"module": module})
 
 
+# Hanlde reordering modules. receives the new order of module IDs encoded in JSON
+class ModuleOrderView(CsrfExemptMixin, JSONRequestResponseMixin, View):
 
+    def post(self, request):
+        print(self.request_json.items())
+        for id, order in self.request_json.items():
+            Module.objects.filter(id=id, course__owner=request.user).update(order=order)
+        return self.render_json_response({"saved": 'OK'})
+
+
+# Handle reordering module content
+class ContentOrderView(CsrfExemptMixin, JSONRequestResponseMixin, View):
+
+    def post(self, request):
+        print(self.request_json.items())
+        for id, order in self.request_json.items():
+            Content.objects.filter(id=id, module__course__owner=request.user).update(order=order)
+        return self.render_json_response({"saved": "OK"})
 
 # to render some list of objects
 # class ManageCourseListView(ListView):
