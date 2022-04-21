@@ -1,16 +1,19 @@
-from django.shortcuts import render
 # Create your views here.
-from django.urls import reverse_lazy
-from django.views.generic.list import ListView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from .models import Course, Module, Content
-from django.shortcuts import redirect, get_object_or_404
-from django.views.generic.base import TemplateResponseMixin, View
-from .forms import ModuleFormSet
-from django.forms.models import modelform_factory
-from django.apps import apps
 from braces.views import CsrfExemptMixin, JSONRequestResponseMixin
+from django.apps import apps
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.db.models import Count
+from django.forms.models import modelform_factory
+from django.shortcuts import redirect, get_object_or_404
+from django.urls import reverse_lazy
+from django.views.generic.base import TemplateResponseMixin, View
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
+
+from .forms import ModuleFormSet
+from .models import Course, Module, Content, Subject
+
 
 # Mixins are a special kind of multiple inheritance for a class.
 # You can use them to provide common discrete functionality that, when added to other mixins,
@@ -187,6 +190,31 @@ class ContentOrderView(CsrfExemptMixin, JSONRequestResponseMixin, View):
         for id, order in self.request_json.items():
             Content.objects.filter(id=id, module__course__owner=request.user).update(order=order)
         return self.render_json_response({"saved": "OK"})
+
+
+# Render Courses List
+class CourseListView(TemplateResponseMixin, View):
+    model = Course
+    template_name = 'courses/course/list.html'
+
+    def get(self, request, subject=None):
+        subjects = Subject.objects.annotate(total_courses=Count('courses')) #Add total number of courses to querry set
+        courses = Course.objects.annotate(total_modules=Count('modules'))
+        print(subjects)
+        if subject:
+            subject = get_object_or_404(Subject, slug=subject)
+            courses = courses.filter(subject=subject)
+
+        return self.render_to_response({'subjects': subjects,
+                                        'subject': subject,
+                                        'courses': courses})
+
+
+
+class CourseDetailView(DetailView):
+    model = Course
+    template_name = 'courses/course/detail.html'
+
 
 # to render some list of objects
 # class ManageCourseListView(ListView):
