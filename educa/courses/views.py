@@ -13,7 +13,7 @@ from django.views.generic.detail import DetailView
 
 from .forms import ModuleFormSet
 from .models import Course, Module, Content, Subject
-
+from students.forms import CourseEnrollForm
 
 # Mixins are a special kind of multiple inheritance for a class.
 # You can use them to provide common discrete functionality that, when added to other mixins,
@@ -210,10 +210,14 @@ class CourseListView(TemplateResponseMixin, View):
                                         'courses': courses})
 
 
-
 class CourseDetailView(DetailView):
     model = Course
     template_name = 'courses/course/detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['enroll_form'] = CourseEnrollForm(initial={'course': self.object})
+        return context
 
 
 # to render some list of objects
