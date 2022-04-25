@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+from django.urls import reverse_lazy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -110,8 +111,8 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
-LOGIN_REDIRECT_URL = '/course/mine/'
+# This is the setting used by the auth module to redirect the student after a successful login
+LOGIN_REDIRECT_URL = reverse_lazy('student_course_list')
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
