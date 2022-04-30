@@ -26,7 +26,6 @@ class StudentRegistrationView(CreateView):
 
 class StudentEnrollCourseView(LoginRequiredMixin, FormView): #FormView handle form submission
     course = None
-
     form_class = CourseEnrollForm
 
     def form_valid(self, form):
@@ -63,7 +62,7 @@ class StudentCourseDetailView(DetailView):
 
         if "module_id" in self.kwargs:
             # get current module
-            context['module'] = course.modulse.get(id=self.kwargs['module_id'])
+            context['module'] = course.modules.get(id=self.kwargs['module_id'])
         else:
             # get first module
             context['module'] = course.modules.all()[0]

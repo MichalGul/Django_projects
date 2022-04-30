@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
+from django.template.loader import render_to_string
 from .fields import OrderField
 # Create your models here.
 
@@ -67,6 +68,7 @@ class Content(models.Model):
     class Meta:
         ordering = ['order']
 
+
 class ItemBase(models.Model):
     owner = models.ForeignKey(User,
                               related_name='%(class)s_related', # placeholder for child model class name
@@ -80,6 +82,12 @@ class ItemBase(models.Model):
 
     def __str__(self):
         return self.title
+    
+    def render(self):
+        return render_to_string( #renders template with context as as string
+            f'courses/content/{self._meta.model_name}.html', # used appropriate template for model (text, video, image or file)
+            {'item': self}
+        )
 
 class Text(ItemBase):
     content = models.TextField()
@@ -88,7 +96,7 @@ class File(ItemBase):
     file = models.FileField(upload_to='files')
 
 class Image(ItemBase):
-    file = models.FileField(upload_to='images')
+    file = models.ImageField(upload_to='images')
 
 class Video(ItemBase):
     url = models.URLField()

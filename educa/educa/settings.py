@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'courses.apps.CoursesConfig',
-    'students.apps.StudentsConfig'
+    'students.apps.StudentsConfig',
+    'embed_video'
 ]
 
 MIDDLEWARE = [
@@ -137,3 +138,9 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+import os
+
+# MEDIA_URL is the base URL to serve uploaded media files and MEDIA_ROOT is the local path where the files are located.
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
