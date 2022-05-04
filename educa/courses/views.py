@@ -15,6 +15,9 @@ from .forms import ModuleFormSet
 from .models import Course, Module, Content, Subject
 from students.forms import CourseEnrollForm
 
+from django.core.cache import cache
+
+
 # Mixins are a special kind of multiple inheritance for a class.
 # You can use them to provide common discrete functionality that, when added to other mixins,
 # allows you to define the behavior of a class
@@ -198,12 +201,25 @@ class CourseListView(TemplateResponseMixin, View):
     template_name = 'courses/course/list.html'
 
     def get(self, request, subject=None):
-        subjects = Subject.objects.annotate(total_courses=Count('courses')) #Add total number of courses to querry set
-        courses = Course.objects.annotate(total_modules=Count('modules'))
-        print(subjects)
+        subjects = cache.get('all_subjects')
+        if not subjects:
+            subjects = Subject.objects.annotate(total_courses=Count('courses')) # Add total number of courses to querry set
+            cache.set('all_subjects', subjects)
+        all_courses = Course.objects.annotate(total_modules=Count('modules'))
+
         if subject:
             subject = get_object_or_404(Subject, slug=subject)
-            courses = courses.filter(subject=subject)
+            key = f'subject_{subject.id}_courses'
+            courses = cache.get('key') # in cache there are results of querry set not querry set!!
+            if not courses:
+                courses = all_courses.filter(subject=subject)
+                cache.set(key, courses)
+
+        else:
+            courses = cache.get('all_courses')
+            if not courses:
+                courses = all_courses
+                cache.set('all_courses', courses)
 
         return self.render_to_response({'subjects': subjects,
                                         'subject': subject,
