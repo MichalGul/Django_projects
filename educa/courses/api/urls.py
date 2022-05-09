@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+
 app_name = 'courses'
 
 urlpatterns = [
@@ -9,4 +10,7 @@ urlpatterns = [
     path('subjects/<pk>/',
          views.SubjectDetailView.as_view(),
          name='subject_detail'),
+    path('courses/<pk>/enroll',
+         views.CourseEnrollView.as_view(),
+         name='course_enroll')
 ]
