@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'embed_video',
     'memcache_status',
     'rest_framework',
+    'chat'
+
 ]
 
 MIDDLEWARE = [
