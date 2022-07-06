@@ -15,12 +15,24 @@
     let chatSocket = new WebSocket(url);
     {# Recieve message #}
     chatSocket.onmessage = function(e) {
+
         let data = JSON.parse(e.data)
         console.log(data)
+
         let message = data.message
+        let dateOptions = {hour: "numeric", minute: 'numeric', hour12: true};
+        let datetime = new Date(data['datetime']).toLocaleString('en', dateOptions) // Convert and Format time
+        let isMe = data.user == '{{ request.user }}';
+        let source = isMe ? 'me': 'other';
+        let name = isMe ? 'Me': data.user;
         let $chat = $('#chat');
-        $chat.append('<div class="message">' + message + '</div>');
+        $chat.append('<div class="message ' + source + '">' +
+                     '<strong>' + name + '</strong> ' +
+                     '<span class="date">' + datetime + '</span><br>' +
+                     message +
+                     '</div>');
         $chat.scrollTop($chat[0].scrollHeight);
+
     };
     chatSocket.onclose = function(e) {
         console.error('Chat, socket closed unexpectedly');
@@ -47,7 +59,6 @@
         $submit.click();
       }
     });
-
 
 
 
