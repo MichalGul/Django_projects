@@ -5,7 +5,7 @@ password = 'testerqwerty123'
 
 base_url = 'http://127.0.0.1:8000/api/'
 
-# retrieve all courses 
+# retrieve all course
 r = requests.get(f'{base_url}courses/')
 courses = r.json()
 
